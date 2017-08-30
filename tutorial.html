@@ -1,0 +1,126 @@
+<html>
+    <head>
+        <title>lsystems, go!</title>
+        <script type="text/javascript" src="lsystems.js"></script>
+        <script type="text/javascript" src="jscolor.js"></script>
+        <style type="text/css">
+
+            #myOptions {
+                float: left;
+            }
+
+            #explanations {
+                padding-left: 600px;
+                padding-right: 200px;
+            }
+
+            body {
+                font-family: Helvetica;
+            }
+
+        </style>
+    </head>
+    <body onload="addExamples();">
+        <div id="app">
+            <div id="myOptions">
+                <p>
+                    <button type="button" onclick="fullApply()">Apply</button>
+                    <input type="text" id="lsys" value="F++F++F" />
+                    <input type="number" id="times" value="1" /> time(s).
+                </p>
+                <p><button type="button" id="iterate" onclick="applyIteration()">Iterate!</button></p>
+                <p>Step Size: <input type="range" id="step" max="400" min="1" value="100" /></p>
+                <p>Step Ratio: <input type="number" step="any" id="ratio" value="3" /></p>
+                <p>Start Position (x) <input type="range" id="posx" max="500" min="0" value="250" onchange="redraw()" /></p>
+                <p>Start Position (y) <input type="range" id="posy" max="500" min="0" value="250" onchange="redraw()" /> <button type="button" id="rescale" onclick="rescale();redraw()">Reset Scale</button></p>
+                <p>
+                    Background Colour: <input id="bg-colour" class="jscolor" value="ffffff" onchange="changeBackgroundColour();" />
+                </p>
+                <p>
+                    Stroke Colour: <input id="stroke-colour" class="jscolor" value="000000" onchange="changeStrokeColour();" />
+                </p>
+                <h3>Replacement Rules:</h3>
+                <div id="rules">
+                    <p id="rule1" class="rule">
+                        <input type="text" class="charact" value="F" size="1" /> : <input type="text" class="replace" value="F-F++F-F" />
+                        <select class="typeOfInstruction" onchange="updateGUI('rule1');">
+                            <option value="f" selected>Forwards</option>
+                            <option value="sr">Stack Read</option>
+                            <option value="sw">Stack Write</option>
+                            <option value="c">Clockwise</option>
+                            <option value="a">Anticlockwise</option>
+                        </select>
+                        <input type="number" class="angle" value="60" size="3" disabled />
+                    </p>
+                    <p id="rule2" class="rule">
+                        <input type="text" class="charact" value="+" size="1" /> : <input type="text" class="replace" value="+" />
+                        <select class="typeOfInstruction" onchange="updateGUI('rule2');">
+                            <option value="f">Forwards</option>
+                            <option value="sr">Stack Read</option>
+                            <option value="sw">Stack Write</option>
+                            <option value="c" selected>Clockwise</option>
+                            <option value="a">Anticlockwise</option>
+                        </select>
+                        <input type="number" class="angle" value="60" size="3" />
+                    </p>
+                    <p id="rule3" class="rule">
+                        <input type="text" class="charact" value="-" size="1" /> : <input type="text" class="replace" value="-" />
+                        <select class="typeOfInstruction" onchange="updateGUI('rule3');">
+                            <option value="f">Forwards</option>
+                            <option value="sr">Stack Read</option>
+                            <option value="sw">Stack Write</option>
+                            <option value="c">Clockwise</option>
+                            <option value="a" selected>Anticlockwise</option>
+                        </select>
+                        <input type="number" class="angle" value="60" size="3" />
+                    </p>
+                </div>
+                <button type="button" onclick="addRule();">Add new rule</button>
+                <button type="button" onclick="removePreviousRule();">Remove last rule</button>
+                <br />
+                <button type="button" onclick="toggleRainbowMode();">Toggle Rainbow Mode</button>
+                <br />
+                <input type="textarea" id="savePlace" />
+                <button type="button" onclick="makeSaveString();">Save</button><button type="button" onclick="loadString();">Load</button>
+                <div id="examples-div"></div>
+            </div>
+            <div id="explanations">
+            <br />
+            Welcome to GERBIL, the Great Excellent Really Brilliant Imager of Lsystems!
+            <br />
+            <br />
+            Hit Apply to start the entered lsystem! Type in the lsystem next to Apply, and choose how many copies of the lsystem you'd like to run. It starts on the first iteration, before any replacements are made.
+            <br />
+            <br />
+            Hit Iterate to move on a step. This makes the replacements defined in Replacement Rules below.
+            <br />
+            <br />
+            Step Size changes how far one forward instruction goes in the first iteration. Step Ratio changes how much this shrinks by upon applying another iteration.
+            <br />
+            <br />
+            Start Pos (x and y) change the coordinates of the starting position. Use this to move your image around!
+            <br />
+            <br />
+            You can change the background colour and stroke colour in the next two settings, thanks to a cool library called jscolor.
+            <br />
+            <br />
+            Next is the Replacement Rules. You define a rule here (so F means go forwards, for example), and what you'd like this letter to be replaced by on each iteration. You can define multiple forwards, turn and stack saving instructions by adding new rules (with "Add new rule"). The number next to each instruction is the angle to turn, if applicable. You can also write and read to a stack - this stores the position and direction that you're currently travelling in, and then you can retrieve the latest state that you've not already retrieved with Stack Read.
+            <br />
+            <br />
+            Rainbow Mode is the best.
+            <br />
+            <br />
+            Here you can save and load strings made by the program, so you can show off your pretty lsystem to all of your friends!...?
+            <br />
+            <br />
+            Finally, here are some examples, just select one to see what it looks like! Maybe you can try opening an example and then modifying it to make it even prettier!
+            <br />
+            <br />
+            This totally amazing program was made by Team Pi, your ultimate source of Pi-based nonsense.
+            <br />
+            <br />
+            <a href="index.html">Go back to the program</a>
+            </div>
+        </div>
+    </body>
+</html>

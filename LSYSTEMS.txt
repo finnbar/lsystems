@@ -1,0 +1,10 @@
+LSYSTEMS
+
+F+F+F+F+F+F++F++F+++F++F+++F++F+++F++F+++F++F+++F++F with Snowflake rules.
+
+EXAMPLE SAVE FILE:
+
+(make save section names the IDs we're writing to)
+(we'll need a list of defaults, but that's OK)
+
+lsys=F++F++F;step=100;ratio=3;bg-colour=FFFFFF;stroke-colour=000000;F:F-F++F-F:f;+:+:c60;-:-:a60;

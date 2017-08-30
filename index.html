@@ -1,0 +1,77 @@
+<html>
+    <head>
+        <title>GERBIL, lsystems imager</title>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.4.20/p5.js"></script>
+        <script type="text/javascript" src="lsystems.js"></script>
+        <script type="text/javascript" src="jscolor.js"></script>
+        <link rel="stylesheet" type="text/css" href="lsystems.css" />
+    </head>
+    <body onload="addExamples();">
+        <div id="app">
+            <div id="myCanvas"></div>
+            <div id="myOptions">
+                <p>
+                    <button type="button" onclick="fullApply()">Apply</button>
+                    <input type="text" id="lsys" value="F++F++F" />
+                    <input type="number" id="times" value="1" /> time(s).
+                </p>
+                <p><button type="button" id="iterate" onclick="applyIteration()">Iterate!</button></p>
+                <p>Step Size: <input type="range" id="step" max="400" min="1" value="100" /></p>
+                <p>Step Ratio: <input type="number" step="any" id="ratio" value="3" /></p>
+                <p>Start Position (x) <input type="range" id="posx" max="500" min="0" value="250" onchange="redraw()" /></p>
+                <p>Start Position (y) <input type="range" id="posy" max="500" min="0" value="250" onchange="redraw()" /> <button type="button" id="rescale" onclick="rescale();redraw()">Reset Scale</button></p>
+                <p>
+                    Background Colour: <input id="bg-colour" class="jscolor" value="ffffff" onchange="changeBackgroundColour();" />
+                </p>
+                <p>
+                    Stroke Colour: <input id="stroke-colour" class="jscolor" value="000000" onchange="changeStrokeColour();" />
+                </p>
+                <h3>Replacement Rules:</h3>
+                <div id="rules">
+                    <p id="rule1" class="rule">
+                        <input type="text" class="charact" value="F" size="1" /> : <input type="text" class="replace" value="F-F++F-F" />
+                        <select class="typeOfInstruction" onchange="updateGUI('rule1');">
+                            <option value="f" selected>Forwards</option>
+                            <option value="sr">Stack Read</option>
+                            <option value="sw">Stack Write</option>
+                            <option value="c">Clockwise</option>
+                            <option value="a">Anticlockwise</option>
+                        </select>
+                        <input type="number" class="angle" value="60" size="3" disabled />
+                    </p>
+                    <p id="rule2" class="rule">
+                        <input type="text" class="charact" value="+" size="1" /> : <input type="text" class="replace" value="+" />
+                        <select class="typeOfInstruction" onchange="updateGUI('rule2');">
+                            <option value="f">Forwards</option>
+                            <option value="sr">Stack Read</option>
+                            <option value="sw">Stack Write</option>
+                            <option value="c" selected>Clockwise</option>
+                            <option value="a">Anticlockwise</option>
+                        </select>
+                        <input type="number" class="angle" value="60" size="3" />
+                    </p>
+                    <p id="rule3" class="rule">
+                        <input type="text" class="charact" value="-" size="1" /> : <input type="text" class="replace" value="-" />
+                        <select class="typeOfInstruction" onchange="updateGUI('rule3');">
+                            <option value="f">Forwards</option>
+                            <option value="sr">Stack Read</option>
+                            <option value="sw">Stack Write</option>
+                            <option value="c">Clockwise</option>
+                            <option value="a" selected>Anticlockwise</option>
+                        </select>
+                        <input type="number" class="angle" value="60" size="3" />
+                    </p>
+                </div>
+                <button type="button" onclick="addRule();">Add new rule</button>
+                <button type="button" onclick="removePreviousRule();">Remove last rule</button>
+                <br />
+                <button type="button" onclick="toggleRainbowMode();">Toggle Rainbow Mode</button>
+                <br />
+                <input type="textarea" id="savePlace" />
+                <button type="button" onclick="makeSaveString();">Save</button><button type="button" onclick="loadString();">Load</button>
+                <div id="examples-div"></div>
+                <a href="tutorial.html">Read the Tutorial</a>
+            </div>
+        </div>
+    </body>
+</html>

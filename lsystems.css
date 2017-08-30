@@ -1,0 +1,14 @@
+#mycanvas {
+    float: left;
+    border-style: solid;
+    width: 62%;
+}
+
+#myOptions {
+    float: right;
+    width: 35%;
+}
+
+body {
+    font-family: Helvetica;
+}
